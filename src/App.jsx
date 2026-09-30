@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ProductosProvider } from './context/ProductosContext';
 import Login from './pages/Login';
 import MenuPrincipal from './pages/MenuPrincipal';
 import './App.css';
@@ -6,8 +7,7 @@ import './App.css';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const handleLogin = (correo) => {
-    // Al presionar Iniciar Sesión nos cambia de vista
+  const handleLogin = () => {
     setIsAuthenticated(true);
   };
 
@@ -16,13 +16,13 @@ function App() {
   };
 
   return (
-    <>
+    <ProductosProvider>
       {isAuthenticated ? (
         <MenuPrincipal onLogout={handleLogout} />
       ) : (
         <Login onLogin={handleLogin} />
       )}
-    </>
+    </ProductosProvider>
   );
 }
 

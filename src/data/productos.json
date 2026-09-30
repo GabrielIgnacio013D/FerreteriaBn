@@ -1,0 +1,6 @@
+[
+  { "id": 1, "nombre": "Taladro Percutor 750W", "categoria": "Herramientas Eléctricas", "precio": 45990, "stock": 10, "descripcion": "Taladro de alto rendimiento para concreto y madera." },
+  { "id": 2, "nombre": "Juego de Destornilladores 6 pzas", "categoria": "Herramientas Manuales", "precio": 9990, "stock": 25, "descripcion": "Acero cromo vanadio con mango ergonómico." },
+  { "id": 3, "nombre": "Martillo de Uña 16 oz", "categoria": "Herramientas Manuales", "precio": 6490, "stock": 15, "descripcion": "Cabeza de acero forjado y mango antideslizante." },
+  { "id": 4, "nombre": "Disco de Corte 4.5 pulgadas", "categoria": "Accesorios", "precio": 1290, "stock": 50, "descripcion": "Ideal para corte de metal y acero inoxidable." }
+]
