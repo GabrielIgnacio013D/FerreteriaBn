@@ -1,27 +1,45 @@
-import { useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ProductosProvider } from './context/ProductosContext';
+
 import Login from './pages/Login';
 import MenuPrincipal from './pages/MenuPrincipal';
+import Productos from './pages/Productos';
+
 import './App.css';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const handleLogin = () => {
-    setIsAuthenticated(true);
-  };
-
-  const handleLogout = () => {
-    setIsAuthenticated(false);
-  };
-
   return (
     <ProductosProvider>
-      {isAuthenticated ? (
-        <MenuPrincipal onLogout={handleLogout} />
-      ) : (
-        <Login onLogin={handleLogin} />
-      )}
+      <BrowserRouter>
+        <Routes>
+
+          <Route
+            path="/"
+            element={<Navigate to="/login" replace />}
+          />
+
+          <Route
+            path="/login"
+            element={<Login />}
+          />
+
+          <Route
+            path="/menu"
+            element={<MenuPrincipal />}
+          />
+
+          <Route
+            path="/productos"
+            element={<Productos />}
+          />
+
+          <Route
+            path="*"
+            element={<Navigate to="/login" replace />}
+          />
+
+        </Routes>
+      </BrowserRouter>
     </ProductosProvider>
   );
 }

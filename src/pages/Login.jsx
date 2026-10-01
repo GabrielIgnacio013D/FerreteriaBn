@@ -1,16 +1,28 @@
 import { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import TarjetaLogin from '../components/organisms/TarjetaLogin';
 
-function Login({ onLogin }) {
+function Login() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const manejarSubmit = (e) => {
     e.preventDefault();
-    if (onLogin) {
-      onLogin(email);
+
+    // Validación simple
+    if (!email || !password) {
+      alert('Debes ingresar correo y contraseña.');
+      return;
     }
+
+    // Guardamos una sesión simple
+    localStorage.setItem('usuario', email);
+
+    // Redirigir al menú principal
+    navigate('/menu');
   };
 
   return (
