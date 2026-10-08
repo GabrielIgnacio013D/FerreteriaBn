@@ -36,3 +36,27 @@ src/
 ├── App.jsx
 ├── index.css
 └── main.jsx
+
+
+
+## Cómo instalar, ejecutar y probar
+
+### Instalar
+```bash
+npm install
+```
+
+### Ejecutar
+```bash
+npm run dev
+```
+
+### Pruebas unitarias (Vitest + Testing Library)
+```bash
+npm run test -- --run
+```
+
+### Cobertura
+```bash
+npm run coverage
+```
