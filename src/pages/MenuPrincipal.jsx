@@ -4,20 +4,18 @@ import { useNavigate } from 'react-router-dom';
 function MenuPrincipal({ onLogout }) {
   const navigate = useNavigate();
 
+  const cerrarSesion = () => {
+    if (onLogout) onLogout();
+    localStorage.removeItem('usuario');
+    navigate('/login');
+  };
+
   return (
     <div className="bg-light min-vh-100">
-
       {/* Encabezado y navegación */}
       <header>
-        <Navbar
-          bg="primary"
-          variant="dark"
-          expand="lg"
-          className="px-4 shadow-sm"
-          as="nav"
-        >
+        <Navbar bg="primary" variant="dark" expand="lg" className="px-4 shadow-sm" as="nav">
           <Container fluid>
-
             <Navbar.Brand
               href="#"
               className="fw-bold"
@@ -31,25 +29,35 @@ function MenuPrincipal({ onLogout }) {
 
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-            <Navbar.Collapse
-              id="basic-navbar-nav"
-              className="justify-content-end"
-            >
+            <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
               <Nav className="align-items-center">
-                <span className="text-white me-3">
-                  Bienvenido(a)
-                </span>
-
-                <Button
-                  variant="outline-light"
-                  size="sm"
-                  onClick={onLogout}
+                <Nav.Link
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate('/productos');
+                  }}
                 >
+                  Productos
+                </Nav.Link>
+
+                <Nav.Link
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate('/categorias');
+                  }}
+                >
+                  Categorías
+                </Nav.Link>
+
+                <span className="text-white mx-3">Bienvenido(a)</span>
+
+                <Button variant="outline-light" size="sm" onClick={cerrarSesion}>
                   Cerrar Sesión
                 </Button>
               </Nav>
             </Navbar.Collapse>
-
           </Container>
         </Navbar>
       </header>
@@ -57,45 +65,23 @@ function MenuPrincipal({ onLogout }) {
       {/* Contenido principal */}
       <main>
         <Container className="mt-5 py-3">
-
           <section aria-labelledby="titulo-panel">
-
-            <h1
-              id="titulo-panel"
-              className="h2 mb-4 text-center text-primary fw-bold"
-            >
+            <h1 id="titulo-panel" className="h2 mb-4 text-center text-primary fw-bold">
               Panel de Control Principal
             </h1>
 
             <Row className="g-4">
-
               {/* PRODUCTOS */}
               <Col md={4}>
-                <Card
-                  as="article"
-                  className="h-100 shadow-sm text-center p-3 border-0"
-                >
+                <Card as="article" className="h-100 shadow-sm text-center p-3 border-0">
                   <Card.Body>
-
-                    <div
-                      aria-hidden="true"
-                      style={{ fontSize: '3rem' }}
-                    >
-                      📦
-                    </div>
-
-                    <Card.Title
-                      as="h2"
-                      className="h4 mt-3"
-                    >
+                    <div aria-hidden="true" style={{ fontSize: '3rem' }}>📦</div>
+                    <Card.Title as="h2" className="h4 mt-3">
                       Inventario y Productos
                     </Card.Title>
-
                     <Card.Text>
-                      Consulta el catálogo de herramientas y materiales,
-                      ajusta stock y precios.
+                      Consulta el catálogo de herramientas y materiales, ajusta stock y precios.
                     </Card.Text>
-
                     <Button
                       variant="primary"
                       className="w-100 mt-2"
@@ -103,79 +89,43 @@ function MenuPrincipal({ onLogout }) {
                     >
                       Ver Productos
                     </Button>
-
                   </Card.Body>
                 </Card>
               </Col>
 
-
-              {/* VENTAS */}
+              {/* CATEGORÍAS */}
               <Col md={4}>
-                <Card
-                  as="article"
-                  className="h-100 shadow-sm text-center p-3 border-0"
-                >
+                <Card as="article" className="h-100 shadow-sm text-center p-3 border-0">
                   <Card.Body>
-
-                    <div
-                      aria-hidden="true"
-                      style={{ fontSize: '3rem' }}
-                    >
-                      🛒
-                    </div>
-
-                    <Card.Title
-                      as="h2"
-                      className="h4 mt-3"
-                    >
-                      Punto de Venta
+                    <div aria-hidden="true" style={{ fontSize: '3rem' }}>🏷️</div>
+                    <Card.Title as="h2" className="h4 mt-3">
+                      Categorías
                     </Card.Title>
-
                     <Card.Text>
-                      Registra compras rápidas, emite comprobantes
-                      y gestiona el carrito.
+                      Explora los productos agrupados por categoría.
                     </Card.Text>
-
                     <Button
                       variant="success"
                       className="w-100 mt-2"
-                      onClick={() => alert('Módulo de ventas próximamente')}
+                      onClick={() => navigate('/categorias')}
                     >
-                      Nueva Venta
+                      Ver Categorías
                     </Button>
-
                   </Card.Body>
                 </Card>
               </Col>
 
-
               {/* CLIENTES */}
               <Col md={4}>
-                <Card
-                  as="article"
-                  className="h-100 shadow-sm text-center p-3 border-0"
-                >
+                <Card as="article" className="h-100 shadow-sm text-center p-3 border-0">
                   <Card.Body>
-
-                    <div
-                      aria-hidden="true"
-                      style={{ fontSize: '3rem' }}
-                    >
-                      👥
-                    </div>
-
-                    <Card.Title
-                      as="h2"
-                      className="h4 mt-3"
-                    >
+                    <div aria-hidden="true" style={{ fontSize: '3rem' }}>👥</div>
+                    <Card.Title as="h2" className="h4 mt-3">
                       Clientes y Proveedores
                     </Card.Title>
-
                     <Card.Text>
-                      Administra la lista de clientes registrados
-                      y datos de proveedores.
+                      Administra la lista de clientes registrados y datos de proveedores.
                     </Card.Text>
-
                     <Button
                       variant="outline-primary"
                       className="w-100 mt-2"
@@ -183,17 +133,13 @@ function MenuPrincipal({ onLogout }) {
                     >
                       Gestionar
                     </Button>
-
                   </Card.Body>
                 </Card>
               </Col>
-
             </Row>
           </section>
-
         </Container>
       </main>
-
     </div>
   );
 }

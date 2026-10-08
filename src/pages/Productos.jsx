@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Container, Form, Row, Col, Button } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import { useProductos } from '../context/ProductosContext';
 import ListaProductos from '../components/organisms/ListaProductos';
@@ -8,40 +8,34 @@ import ListaProductos from '../components/organisms/ListaProductos';
 function Productos() {
   const { productos } = useProductos();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [busqueda, setBusqueda] = useState('');
-  const [categoria, setCategoria] = useState('Todas');
+  const [categoria, setCategoria] = useState(location.state?.categoria ?? 'Todas');
 
-  //  categorías únicas de los productos
+  // categorías únicas de los productos
   const categorias = [
     'Todas',
-    ...new Set(
-      productos.map((producto) => producto.categoria)
-    )
+    ...new Set(productos.map((producto) => producto.categoria)),
   ];
 
-  //  productos por nombre y categoría
+  // productos por nombre y categoría
   const productosFiltrados = productos.filter((producto) => {
     const textoBusqueda = busqueda.toLowerCase().trim();
 
-    const coincideBusqueda =
-      producto.nombre.toLowerCase().includes(textoBusqueda);
+    const coincideBusqueda = producto.nombre.toLowerCase().includes(textoBusqueda);
 
     const coincideCategoria =
-      categoria === 'Todas' ||
-      producto.categoria === categoria;
+      categoria === 'Todas' || producto.categoria === categoria;
 
     return coincideBusqueda && coincideCategoria;
   });
 
   return (
     <main className="bg-light min-vh-100 py-5">
-
       <Container>
-
         {/* encabezado */}
         <div className="text-center mb-5">
-
           <h1 className="display-5 fw-bold text-primary">
             🛠️ Catálogo Ferretería BN
           </h1>
@@ -50,24 +44,16 @@ function Productos() {
             Encuentra las herramientas y materiales que necesitas.
           </p>
 
-          <Button
-            variant="outline-primary"
-            onClick={() => navigate('/menu')}
-          >
+          <Button variant="outline-primary" onClick={() => navigate('/menu')}>
             ← Volver al menú
           </Button>
-
         </div>
 
-        {/* buscao y filtro */}
+        {/* buscador y filtro */}
         <Row className="mb-4 g-3">
-
           <Col md={8}>
             <Form.Group>
-              <Form.Label className="fw-bold">
-                🔎 Buscar producto
-              </Form.Label>
-
+              <Form.Label className="fw-bold">🔎 Buscar producto</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Escribe el nombre del producto..."
@@ -79,10 +65,7 @@ function Productos() {
 
           <Col md={4}>
             <Form.Group>
-              <Form.Label className="fw-bold">
-                🏷️ Categoría
-              </Form.Label>
-
+              <Form.Label className="fw-bold">🏷️ Categoría</Form.Label>
               <Form.Select
                 value={categoria}
                 onChange={(e) => setCategoria(e.target.value)}
@@ -95,30 +78,21 @@ function Productos() {
               </Form.Select>
             </Form.Group>
           </Col>
-
         </Row>
 
-        {/* resultaaados */}
+        {/* resultados */}
         <div className="d-flex justify-content-between align-items-center mb-4">
-
-          <h2 className="h4 mb-0">
-            Productos disponibles
-          </h2>
+          <h2 className="h4 mb-0">Productos disponibles</h2>
 
           <span className="badge text-bg-primary fs-6">
             {productosFiltrados.length}{' '}
-            {productosFiltrados.length === 1
-              ? 'producto'
-              : 'productos'}
+            {productosFiltrados.length === 1 ? 'producto' : 'productos'}
           </span>
-
         </div>
 
         {/* lista */}
         <ListaProductos productos={productosFiltrados} />
-
       </Container>
-
     </main>
   );
 }
