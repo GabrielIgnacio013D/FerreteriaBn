@@ -1,10 +1,12 @@
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useProductos } from '../context/ProductosContext';
+import { useTituloPagina } from '../hooks/useTituloPagina';
 
 function Categorias() {
   const { productos } = useProductos();
   const navigate = useNavigate();
+  useTituloPagina('Categorías');
 
   const categorias = [...new Set(productos.map((p) => p.categoria))];
 

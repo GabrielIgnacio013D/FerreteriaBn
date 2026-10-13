@@ -3,35 +3,46 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import FormularioLogin from './FormularioLogin'
 
-function montar(props = {}) {
-  const base = {
-    email: '',
-    setEmail: vi.fn(),
-    password: '',
-    setPassword: vi.fn(),
-    onSubmit: vi.fn((e) => e.preventDefault()),
-  }
-  const final = { ...base, ...props }
-  render(<FormularioLogin {...final} />)
-  return final
-}
-
 describe('FormularioLogin', () => {
   it('muestra los campos de correo y contraseña', () => {
-    montar()
+    render(<FormularioLogin onEnviar={vi.fn()} />)
     expect(screen.getByLabelText('Correo Electrónico')).toBeInTheDocument()
     expect(screen.getByLabelText('Contraseña')).toBeInTheDocument()
   })
 
-  it('llama a setEmail al escribir el correo', async () => {
-    const props = montar()
-    await userEvent.type(screen.getByLabelText('Correo Electrónico'), 'a')
-    expect(props.setEmail).toHaveBeenCalled()
+  it('muestra errores y no envía si los campos están vacíos', async () => {
+    const onEnviar = vi.fn()
+    render(<FormularioLogin onEnviar={onEnviar} />)
+    await userEvent.click(screen.getByRole('button', { name: 'Iniciar Sesión' }))
+    expect(screen.getByText('El correo es obligatorio')).toBeInTheDocument()
+    expect(screen.getByText('La contraseña es obligatoria')).toBeInTheDocument()
+    expect(onEnviar).not.toHaveBeenCalled()
   })
 
-  it('llama a onSubmit al presionar el botón con datos válidos', async () => {
-    const props = montar({ email: 'gabo@correo.cl', password: '1234' })
+  it('muestra error si el correo no es válido', async () => {
+    const onEnviar = vi.fn()
+    render(<FormularioLogin onEnviar={onEnviar} />)
+    await userEvent.type(screen.getByLabelText('Correo Electrónico'), 'correo-malo')
+    await userEvent.type(screen.getByLabelText('Contraseña'), '123456')
     await userEvent.click(screen.getByRole('button', { name: 'Iniciar Sesión' }))
-    expect(props.onSubmit).toHaveBeenCalled()
+    expect(screen.getByText('Ingresa un correo válido')).toBeInTheDocument()
+    expect(onEnviar).not.toHaveBeenCalled()
+  })
+
+  it('muestra error si la contraseña es muy corta', async () => {
+    render(<FormularioLogin onEnviar={vi.fn()} />)
+    await userEvent.type(screen.getByLabelText('Correo Electrónico'), 'gabo@correo.cl')
+    await userEvent.type(screen.getByLabelText('Contraseña'), '123')
+    await userEvent.click(screen.getByRole('button', { name: 'Iniciar Sesión' }))
+    expect(screen.getByText('La contraseña debe tener al menos 6 caracteres')).toBeInTheDocument()
+  })
+
+  it('llama a onEnviar con el correo cuando todo es válido', async () => {
+    const onEnviar = vi.fn()
+    render(<FormularioLogin onEnviar={onEnviar} />)
+    await userEvent.type(screen.getByLabelText('Correo Electrónico'), 'gabo@correo.cl')
+    await userEvent.type(screen.getByLabelText('Contraseña'), '123456')
+    await userEvent.click(screen.getByRole('button', { name: 'Iniciar Sesión' }))
+    expect(onEnviar).toHaveBeenCalledWith({ email: 'gabo@correo.cl' })
   })
 })

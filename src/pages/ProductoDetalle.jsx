@@ -1,6 +1,7 @@
 import { Container, Button, Badge } from 'react-bootstrap';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useProductos } from '../context/ProductosContext';
+import { useTituloPagina } from '../hooks/useTituloPagina';
 
 function ProductoDetalle() {
   const { id } = useParams();
@@ -8,6 +9,7 @@ function ProductoDetalle() {
   const { productos } = useProductos();
 
   const producto = productos.find((p) => p.id === Number(id));
+  useTituloPagina(producto ? producto.nombre : 'Producto no encontrado');
 
   if (!producto) {
     return (
