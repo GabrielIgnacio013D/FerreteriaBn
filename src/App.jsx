@@ -6,6 +6,7 @@ import MenuPrincipal from './pages/MenuPrincipal';
 import Productos from './pages/Productos';
 import Categorias from './pages/Categorias';
 import ProductoDetalle from './pages/ProductoDetalle';
+import AdminProductos from './pages/AdminProductos';
 
 import './App.css';
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/productos" element={<Productos />} />
           <Route path="/productos/:id" element={<ProductoDetalle />} />
           <Route path="/categorias" element={<Categorias />} />
+          <Route path="/admin/productos" element={<AdminProductos />} />
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </BrowserRouter>

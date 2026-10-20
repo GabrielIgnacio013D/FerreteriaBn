@@ -12,7 +12,6 @@ function MenuPrincipal({ onLogout }) {
 
   return (
     <div className="bg-light min-vh-100">
-      {/* Encabezado y navegación */}
       <header>
         <Navbar bg="primary" variant="dark" expand="lg" className="px-4 shadow-sm" as="nav">
           <Container fluid>
@@ -51,6 +50,16 @@ function MenuPrincipal({ onLogout }) {
                   Categorías
                 </Nav.Link>
 
+                <Nav.Link
+                  href="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    navigate('/admin/productos');
+                  }}
+                >
+                  Administración
+                </Nav.Link>
+
                 <span className="text-white mx-3">Bienvenido(a)</span>
 
                 <Button variant="outline-light" size="sm" onClick={cerrarSesion}>
@@ -62,7 +71,6 @@ function MenuPrincipal({ onLogout }) {
         </Navbar>
       </header>
 
-      {/* Contenido principal */}
       <main>
         <Container className="mt-5 py-3">
           <section aria-labelledby="titulo-panel">
@@ -71,7 +79,6 @@ function MenuPrincipal({ onLogout }) {
             </h1>
 
             <Row className="g-4">
-              {/* PRODUCTOS */}
               <Col md={4}>
                 <Card as="article" className="h-100 shadow-sm text-center p-3 border-0">
                   <Card.Body>
@@ -80,7 +87,7 @@ function MenuPrincipal({ onLogout }) {
                       Inventario y Productos
                     </Card.Title>
                     <Card.Text>
-                      Consulta el catálogo de herramientas y materiales, ajusta stock y precios.
+                      Consulta el catálogo de herramientas y materiales.
                     </Card.Text>
                     <Button
                       variant="primary"
@@ -93,7 +100,6 @@ function MenuPrincipal({ onLogout }) {
                 </Card>
               </Col>
 
-              {/* CATEGORÍAS */}
               <Col md={4}>
                 <Card as="article" className="h-100 shadow-sm text-center p-3 border-0">
                   <Card.Body>
@@ -115,23 +121,22 @@ function MenuPrincipal({ onLogout }) {
                 </Card>
               </Col>
 
-              {/* CLIENTES */}
               <Col md={4}>
                 <Card as="article" className="h-100 shadow-sm text-center p-3 border-0">
                   <Card.Body>
-                    <div aria-hidden="true" style={{ fontSize: '3rem' }}>👥</div>
+                    <div aria-hidden="true" style={{ fontSize: '3rem' }}>⚙️</div>
                     <Card.Title as="h2" className="h4 mt-3">
-                      Clientes y Proveedores
+                      Administración
                     </Card.Title>
                     <Card.Text>
-                      Administra la lista de clientes registrados y datos de proveedores.
+                      Crea, edita y elimina productos del catálogo.
                     </Card.Text>
                     <Button
                       variant="outline-primary"
                       className="w-100 mt-2"
-                      onClick={() => alert('Módulo de clientes próximamente')}
+                      onClick={() => navigate('/admin/productos')}
                     >
-                      Gestionar
+                      Administrar
                     </Button>
                   </Card.Body>
                 </Card>
