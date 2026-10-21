@@ -1,5 +1,7 @@
 const CLAVE = 'pedidos';
 
+export const ESTADOS = ['En preparación', 'Despachado', 'Entregado'];
+
 function leer() {
   const guardado = localStorage.getItem(CLAVE);
   return guardado === null ? [] : JSON.parse(guardado);
@@ -21,9 +23,15 @@ export function crearPedido({ cliente, items, total }) {
     cliente,
     items,
     total,
-    estado: 'En preparación',
+    estado: ESTADOS[0],
     fecha: new Date().toISOString(),
   };
   localStorage.setItem(CLAVE, JSON.stringify([...lista, pedido]));
   return pedido;
+}
+
+export function actualizarEstadoPedido(id, estado) {
+  const lista = leer().map((p) => (p.id === id ? { ...p, estado } : p));
+  localStorage.setItem(CLAVE, JSON.stringify(lista));
+  return lista.find((p) => p.id === id) ?? null;
 }

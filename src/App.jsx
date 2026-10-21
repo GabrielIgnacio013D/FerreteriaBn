@@ -17,7 +17,16 @@ import Contacto from './pages/Contacto';
 import Carrito from './pages/Carrito';
 import Checkout from './pages/Checkout';
 import Resultado from './pages/Resultado';
+import AdminDashboard from './pages/AdminDashboard';
 import AdminProductos from './pages/AdminProductos';
+import AdminCategorias from './pages/AdminCategorias';
+import AdminCriticos from './pages/AdminCriticos';
+import AdminSolicitudes from './pages/AdminSolicitudes';
+import AdminSolicitudDetalle from './pages/AdminSolicitudDetalle';
+import AdminUsuarios from './pages/AdminUsuarios';
+import AdminHistorial from './pages/AdminHistorial';
+import AdminReportes from './pages/AdminReportes';
+import AdminPerfil from './pages/AdminPerfil';
 
 import './App.css';
 
@@ -42,7 +51,18 @@ function App() {
             <Route path="/carrito" element={<Carrito />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/resultado/:id" element={<Resultado />} />
+
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/admin/productos" element={<AdminProductos />} />
+            <Route path="/admin/categorias" element={<AdminCategorias />} />
+            <Route path="/admin/criticos" element={<AdminCriticos />} />
+            <Route path="/admin/solicitudes" element={<AdminSolicitudes />} />
+            <Route path="/admin/solicitudes/:id" element={<AdminSolicitudDetalle />} />
+            <Route path="/admin/usuarios" element={<AdminUsuarios />} />
+            <Route path="/admin/usuarios/:id/historial" element={<AdminHistorial />} />
+            <Route path="/admin/reportes" element={<AdminReportes />} />
+            <Route path="/admin/perfil" element={<AdminPerfil />} />
+
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
