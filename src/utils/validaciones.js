@@ -23,3 +23,8 @@ export function validarNumero(valor, minimo, campo) {
   if (numero < minimo) return `${campo} debe ser al menos ${minimo}`;
   return '';
 }
+export function validarConfirmacion(clave, confirmacion) {
+  if (confirmacion.trim() === '') return 'Debes confirmar la contraseña';
+  if (clave !== confirmacion) return 'Las contraseñas no coinciden';
+  return '';
+}
