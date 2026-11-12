@@ -10,6 +10,8 @@ Ferretería BN
 Aplicación web para gestionar e iniciar sesión en la tienda Ferretería BN.
 La interfaz permite la autenticación de usuarios mediante un formulario de login y facilita la navegación hacia las distintas secciones de gestión del sistema (catálogo, inventario y menú principal). En esta etapa, el proyecto incluye soporte para persistencia de datos local (CRUD) mediante `localStorage` y estado compartido con `Context API`.
 
+**Backend:** https://github.com/GabrielIgnacio013D/ferreteria-bn-backend
+
 ## Estructura del proyecto
 ```text
 src/
